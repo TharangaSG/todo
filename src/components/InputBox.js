@@ -1,5 +1,5 @@
 import './InputBox.css'
-import React from 'react';
+import React from 'react'; 
 
 
 const InputBox = (props) => {
