@@ -1,0 +1,12 @@
+.btnTodo, .btnCompleted{
+    background-color: aquamarine;
+    color:white;
+    border:none;
+    padding: 10px;
+    width: fit-content;
+    cursor: pointer;
+  }
+  
+  .active{
+    background-color: darkgreen;
+  }
