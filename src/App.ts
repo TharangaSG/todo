@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react';
+import React,{useState, useEffect, FC} from 'react';
 import './App.css';
 import {AiOutlineDelete} from 'react-icons/ai'
 import {BsCheckLg} from 'react-icons/bs'
@@ -6,15 +6,19 @@ import AddButton from './components/AddButton';
 import InputBox from './components/InputBox';
 import ToggleButton from './components/ToggleButton';
 
+interface todoItem{
+  title: string;
+  description: string;
+  completedOn?: string;
+}
+const App: FC = () => {
+  const [isCompleteScreen, setIsCompleteScreen] = useState<boolean>(false);
+  const [allTodos, setTodos] = useState<todoItem[]>([]);
+  const [newInputBox, setnewInputBox] = useState<string>("");
+  const [newDescription, setnewDescription] = useState<string>("");
+  const [completedTodos, SetCompletedTodos] = useState<todoItem[]>([]);
 
-function App() {
-  const [isCompleteScreen, setIsCompleteScreen] = useState(false);
-  const [allTodos, setTodos] = useState([]);
-  const [newInputBox, setnewInputBox] = useState("");
-  const [newDescription, setnewDescription] = useState("");
-  const [completedTodos, SetCompletedTodos] = useState([]);
-
-  const handleAddTodo = ()=>{
+  const handleAddTodo = (): void => {
     const newTodoItem = {
       title:newInputBox,
       description:newDescription
@@ -27,7 +31,7 @@ function App() {
     localStorage.setItem('todolist',JSON.stringify(allTodos))
   }
 
-  const handleDeleteTodo = (index) => {
+  const handleDeleteTodo = (index: number): void => {
     let reducedTodo = [...allTodos];
     reducedTodo.splice(index, 1);
 
@@ -35,7 +39,7 @@ function App() {
     setTodos(reducedTodo);
   }
   
-  const handleComplete = (index)=>{
+  const handleComplete = (index: number): void => {
     let now = new Date();
     let dd = now.getDate();
     let mm = now.getMonth()+1;
@@ -59,7 +63,7 @@ function App() {
   }
 
   useEffect(() =>{
-    let savetodo = JSON.parse(localStorage.getItem('todolist'));
+    let savetodo = JSON.parse(localStorage.getItem('todolist') || '[]');
     if(savetodo){
       setTodos(savetodo);
     }
